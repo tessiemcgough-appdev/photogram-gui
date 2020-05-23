@@ -8,7 +8,7 @@
   <dt>Owner</dt>
   <dd><%=User.where(:id => @photo_info.owner_id).pluck(:username).at(0)%></dd>
   <dt>Posted</dt>
-  <dd><%=@photo_info.created_at%></dd>
+  <dd><%=@months_btwn%> months ago</dd>
   <dt>Edit photo</dt>
   <dd>
     <form action="/update_photo/<%=@photo_info.id%>">
@@ -47,5 +47,5 @@
   <input type="text" id="author_id" name="author_id">
   <label for="comment">Comment</label>
   <textarea name="comment" id="comment" placeholder="Enter a comment..."></textarea>
-  <button>Add a comment</button>
+  <button>Add comment</button>
 </form>
