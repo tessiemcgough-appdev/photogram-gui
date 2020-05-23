@@ -1,0 +1,51 @@
+<h1>Photo Details</h1>
+
+<dl>
+  <dt>Image</dt>
+  <dd><img src="<%=@photo_info.image%>"></dd>
+  <dt>Caption</dt> 
+  <dd><%=@photo_info.caption%></dd>
+  <dt>Owner</dt>
+  <dd><%=User.where(:id => @photo_info.owner_id).pluck(:username).at(0)%></dd>
+  <dt>Posted</dt>
+  <dd><%=@photo_info.created_at%></dd>
+  <dt>Edit photo</dt>
+  <dd>
+    <form action="/update_photo/<%=@photo_info.id%>">
+      <label for="image">Image</label>
+      <input id="image" name="new_image_src" type="text" placeholder="Enter a URL for the image..." value="<%=@photo_info.image%>">
+      <label for="caption">Caption</label>
+      <textarea id="caption" name="new_caption" placeholder="Enter a caption for the image..."><%=@photo_info.caption%></textarea>
+      <button>Update photo</button>
+    </form>
+  </dd>
+  <dt>Delete photo</dt>
+  <dd><a href="/delete_photo/<%=@photo_info.id%>">Delete this photo</a></dd>
+</dl>
+
+<h2>Comments</h2>
+<table class="no-border">
+  <tr>
+    <th class="no-border">Commenter	</th>
+    <th class="no-border">Comment</th>
+    <th class="no-border">	Posted</th>
+  </tr>
+  <% @comments.each do |comment|%>
+  <tr>
+    <td class="no-border"><%=User.where(:id => comment.author_id).pluck(:username).at(0)%></td>
+    <td class="no-border"><%= comment.body %></td>
+    <td class="no-border"><%= comment.created_at %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h2>Add a new comment</h2>
+<form action="/insert_comment">
+  <label for="photo_id">Photo ID</label>
+  <input type="text" value="<%=@photo_info.id%>" id="photo_id" name="photo_id">
+  <label for="author_id">Author ID</label>
+  <input type="text" id="author_id" name="author_id">
+  <label for="comment">Comment</label>
+  <textarea name="comment" id="comment" placeholder="Enter a comment..."></textarea>
+  <button>Add a comment</button>
+</form>

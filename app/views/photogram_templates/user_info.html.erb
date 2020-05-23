@@ -1,0 +1,33 @@
+<h1><%= @users.username %> </h1>
+
+<dl>
+  <dt>ID</dt>
+  <dd><%=@users.id%></dd>
+  <dt>Edit user</dt>
+  <dd>
+      <form action="/update_username/<%=@users.id.to_s%>">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="updated_username">
+        <button>Update user</button>
+      </form>
+  </dd>
+</dl>
+
+<table>
+  <tr>
+    <th>Image</th>
+    <th>Owner</th>
+    <th>Caption</th>
+    <th>Posted</th>
+    <th></th>
+  </tr>
+  <% @photos.each do |photo| %>
+    <tr>
+    <td><img src="<%= photo.image %>"></td>
+    <td><%= @users.username %></td>
+    <td><%=photo.caption%></td>
+    <td><%=photo.created_at%></td>
+    <td><a href="/photos/<%=photo.id%>">Show details</a></td>
+    </tr>
+  <% end %>
+</table>
